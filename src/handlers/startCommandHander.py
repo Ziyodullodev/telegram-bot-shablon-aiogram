@@ -1,13 +1,13 @@
-from aiogram import Router
 from aiogram import types
 from aiogram.filters import CommandStart
-start_command_router = Router()
-from main import localizator, translator as _
+from handlers.mainHandler import localizator
+from aiogram import Router
 
-@start_command_router.message(CommandStart())
+message_router = Router()
+
+@message_router.message(CommandStart())
 async def start_dispatcher(message: types.Message):
     first_name = message.from_user.first_name
     chat_id = message.chat.id
-    localizator.lang = 'uz'
-    await message.answer(_['welcome'])
-        
+    localizator.set_language("en")
+    await message.answer(localizator.get("welcome"))
