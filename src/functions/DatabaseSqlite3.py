@@ -58,7 +58,8 @@ class SQLiteDatabase:
 
         query += " LIMIT 1"
         self.cursor.execute(query, tuple(values))
-        return dict(self.cursor.fetchone()) if self.cursor.fetchone() else None
+        row = self.cursor.fetchone()
+        return dict(row) if row else None
 
     def get_all(self, table, conditions=None, where=None):
         """Barcha mos yozuvlarni olish"""
@@ -73,7 +74,8 @@ class SQLiteDatabase:
             query += f" {'AND' if conditions else 'WHERE'} {where}"
 
         self.cursor.execute(query, tuple(values))
-        return [dict(row) for row in self.cursor.fetchall()]
+        rows = self.cursor.fetchall()
+        return [dict(row) for row in rows] if rows else []
 
     def execute(self, query, values=None):
         """SQL so‘rovni bajarish"""
