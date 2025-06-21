@@ -7,12 +7,16 @@ DB_NAME = "database.db"
 # Users jadvalini yaratish
 create_users_table_query = """
     CREATE TABLE IF NOT EXISTS users (
-        id SERIAL PRIMARY KEY,
+        id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
         telegram_id INTEGER UNIQUE NOT NULL,
-        full_name VARCHAR(100) NOT NULL,
         username VARCHAR(100) UNIQUE,
         first_name VARCHAR(100) NOT NULL,
-        last_name VARCHAR(100)
+        last_name VARCHAR(100),
+        phone_number VARCHAR(100) DEFAULT NULL,
+        step VARCHAR(100) DEFAULT NULL,
+        language VARCHAR(100) DEFAULT 'uz',
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
 """
 # Users jadvalini o'chirish
