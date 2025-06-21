@@ -1,4 +1,6 @@
 {
     "welcome": "Hello! How can I help you?",
-    "help": "This is a help message."
+    "help": "This is a help message.",
+
+    "keyboard_menu_1": "Menu"
 }

@@ -5,6 +5,10 @@ from aiogram import Router
 
 callback_router = Router()
 
-@callback_router.callback_query()
-async def callback_handler(callback: types.CallbackQuery):
-    await callback.message.edit_text(localizator.get("welcome"))
+@callback_router.callback_query(lambda c: c.data == "welcome")
+async def check_channel(callback: types.CallbackQuery):
+    await callback.message.delete()
+    await callback.message.answer(localizator.get("welcome"), reply_markup=main_keyboard.main_menu_keyboard(localizator))
+    return
+    
+    
