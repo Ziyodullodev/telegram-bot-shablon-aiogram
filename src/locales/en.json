@@ -1,6 +1,7 @@
 {
     "welcome": "Hello! How can I help you?",
     "help": "This is a help message.",
+    "error": "Error! Please repeat /start command.",
 
     "keyboard_menu_1": "Menu"
 }

@@ -1,7 +1,7 @@
 {
   "welcome": "Assalomu alaykum! Qanday yordam bera olaman?",
   "help": "Bu yordam xabari.",
-
+  "error": "Xatolik yuz berdi! Qaytadan /start komandasi bilan bosing.",
 
   "keyboard_menu_1": "Menu"
 }

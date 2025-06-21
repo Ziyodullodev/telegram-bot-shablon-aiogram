@@ -1,8 +1,8 @@
 from aiogram import types
-from aiogram.filters import CommandStart
+from aiogram.filters import CommandStart, Command
 from handlers.mainHandler import localizator, db
 from aiogram import Router
-from .keyboards import main_keyboard
+from .keyboards import main_keyboard, admin_keyboard
 
 start_message_router = Router()
 
@@ -25,6 +25,31 @@ async def start_dispatcher(message: types.Message):
             "step": "start",
             "language": language
         })
+    else:
+        language = user.get("language", "uz")
     
     localizator.set_language(language)
     await message.answer(localizator.get("welcome"), reply_markup=main_keyboard.main_menu_keyboard(localizator))
+
+
+@start_message_router.message(Command("panel"))
+async def admin_handler(message: types.Message):
+    user = db.get("users", {"telegram_id": message.chat.id})
+    
+    if not user or not user.get("is_admin"):
+        await message.answer("You are not an admin")
+        return
+    db.update("users", {"step": "admin_panel"}, {"telegram_id": message.chat.id})
+    await message.answer("Admin panel", reply_markup=admin_keyboard.admin_menu_keyboard(localizator))
+
+
+@start_message_router.message(Command("exit"))
+async def exit_handler(message: types.Message):
+    user = db.get("users", {"telegram_id": message.chat.id})
+    
+    if not user or not user.get("is_admin"):
+        await message.answer("You are not an admin")
+        return
+    db.update("users", {"step": "start"}, {"telegram_id": message.chat.id})
+    await message.answer("You have been logged out", reply_markup=main_keyboard.main_menu_keyboard(localizator))
+

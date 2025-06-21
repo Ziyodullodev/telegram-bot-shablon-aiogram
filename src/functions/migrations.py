@@ -15,6 +15,7 @@ create_users_table_query = """
         phone_number VARCHAR(100) DEFAULT NULL,
         step VARCHAR(100) DEFAULT NULL,
         language VARCHAR(100) DEFAULT 'uz',
+        is_admin BOOLEAN DEFAULT FALSE,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
